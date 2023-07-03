@@ -1,3 +1,4 @@
+import logging
 import re
 import textwrap
 from abc import abstractmethod
@@ -6,6 +7,7 @@ from typing import TypeVar, Type
 from django.db import models
 from simple_history.models import HistoricalRecords
 
+logger = logging.getLogger(__name__)
 
 class SoftDeleteModelManager(models.Manager):
     def get_queryset(self):
@@ -78,8 +80,11 @@ class ShortableNameFields(models.Model):
             return True
 
     def set_short_name(self, name: str):
-        if len(name) > 50:
-            name = textwrap.wrap(name, 49)[0] + "\u2026"
+        try:
+            if len(name) > 50:
+                name = textwrap.wrap(name, 49)[0] + "\u2026"
+        except Exception:
+            logger.error("name not set properly")
         self.short_name = name
 
     class Meta:

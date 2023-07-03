@@ -42,6 +42,7 @@ def geocode(search: str) -> Optional[Dict[str, Any]]:
         try:
             if name == "mapbox":
                 location = geolocator.geocode(search, exactly_one=False)
+                logger.warning(f"mapbox location search {[location[0].longitude]}")
             else:
                 # noinspection PyArgumentList
                 location = geolocator.geocode(

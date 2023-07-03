@@ -396,6 +396,9 @@ class JsonToDb:
 
         paper_backref = lib_object.get("paper") or lib_object.get("mst:backref")
         consultation.paper = self.retrieve(Paper, paper_backref, consultation.oparl_id)
+        # breaks for
+        # https://oparl.stadt-muenster.de/bodies/0001/consultations/73771
+        # meeting does not exist
         consultation.meeting = self.retrieve(
             Meeting, lib_object.get("meeting"), consultation.oparl_id
         )
@@ -520,19 +523,22 @@ class JsonToDb:
         return paper
 
     def paper_related(self, lib_object: JSON, paper: Paper) -> None:
-        paper.files.set(
-            self.retrieve_many(File, lib_object.get("auxiliaryFile"), lib_object["id"])
-        )
-        paper.organizations.set(
-            self.retrieve_many(
-                Organization, lib_object.get("underDirectionOf"), lib_object["id"]
+        try:
+            paper.files.set(
+                self.retrieve_many(File, lib_object.get("auxiliaryFile"), lib_object["id"])
             )
-        )
-        paper.persons.set(
-            self.retrieve_many(
-                Person, lib_object.get("originatorPerson"), lib_object["id"]
+            paper.organizations.set(
+                self.retrieve_many(
+                    Organization, lib_object.get("underDirectionOf"), lib_object["id"]
+                )
             )
-        )
+            paper.persons.set(
+                self.retrieve_many(
+                    Person, lib_object.get("originatorPerson"), lib_object["id"]
+                )
+            )
+        except:
+            logger.error(f"relationship failed for paper {lib_object}")
 
     def organization(
         self, lib_object: JSON, organization: Organization

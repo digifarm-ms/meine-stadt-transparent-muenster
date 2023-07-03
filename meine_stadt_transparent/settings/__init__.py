@@ -90,7 +90,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = env.str("LANGUAGE_CODE", "de-de")
+LANGUAGE_CODE = "de-de"
 
 TIME_ZONE = env.str("TIME_ZONE", "Europe/Berlin")
 

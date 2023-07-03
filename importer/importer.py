@@ -141,11 +141,17 @@ class Importer:
                 to_import.data, instance, name_fixup=_("[Unknown]")
             )
             if not instance.deleted:
-                import_function(to_import.data, instance)
-                self.converter.utils.call_custom_hook(
-                    "sanitize_" + type_name.lower(), instance
-                )
-
+                try:
+                    import_function(to_import.data, instance)
+                    self.converter.utils.call_custom_hook(
+                        "sanitize_" + type_name.lower(), instance
+                    )
+                except Exception as e:
+                    logger.warning(
+                        f"Failed to import {type_name} {to_import.url} {e},"
+                        " ignoring"
+                    )
+                    continue
             try:
                 instance.save()
             except IntegrityError as e:
