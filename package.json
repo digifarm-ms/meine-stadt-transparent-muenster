@@ -11,7 +11,8 @@
     "build:prod": "NODE_ENV=production webpack --config ./etc/webpack.config.prod.js",
     "build:email": "mjml mainapp/assets/email/user-alert.mjml -o mainapp/templates/email/user-alert.html",
     "watch": "NODE_ENV=dev webpack --config etc/webpack.config.dev.js --watch",
-    "watch:email": "mjml -w mainapp/assets/email/user-alert.mjml -o mainapp/templates/email/user-alert.html"
+    "watch:email": "mjml -w mainapp/assets/email/user-alert.mjml -o mainapp/templates/email/user-alert.html",
+    "heroku-postbuild": "./node_modules/.bin/webpack --config ./etc/webpack.config.prod.js"
   },
   "author": "Konstantin Schütze, Tobias Hößl",
   "license": "MIT",

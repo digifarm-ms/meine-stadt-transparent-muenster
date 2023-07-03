@@ -15,7 +15,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "3.9.17"
 Django = ">=4.1.1,<4.2.0"
 PyPDF2 = { version = "^3.0.0", extras = ["crypto"] }
 Wand = "^0.6.0"
@@ -32,7 +32,7 @@ django-simple-history = "^3.0"
 django-webpack-loader = "1.8.0"
 django-widget-tweaks = "^1.4"
 django_csp = "^3.4"
-elasticsearch = "7.17.9"
+elasticsearch = "<7.14.0"
 elasticsearch-dsl = "^7.3"
 geoextract = "^0.3.1"
 geopy = "^2.0.0"
@@ -52,6 +52,7 @@ sentry-sdk = "^1.0.0"
 splinter = "~0.19"
 tqdm = "^4.29"
 wagtail = "~4.2.1"
+whitenoise = "~6.5.0"
 
 [tool.poetry.dev-dependencies]
 black = { version = "^23.3.0", extras = ["d"] }
