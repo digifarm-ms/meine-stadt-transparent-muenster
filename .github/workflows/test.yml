@@ -13,7 +13,7 @@ jobs:
         python-version: [ '3.8', '3.11' ]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install pdftotext
         run: sudo apt-get install poppler-utils
       - uses: actions/setup-node@v3
